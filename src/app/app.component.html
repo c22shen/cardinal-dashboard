@@ -1,27 +1,53 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span>MyMaterial</span>
+<div fxLayout="column" fxFlex>
 
-    <span class="example-spacer"></span>
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>PCF Cardinal Dashboard - Issue Count</span>
+    </mat-toolbar-row>
+  </mat-toolbar>
 
-    <button mat-button>About</button>
-    <button mat-button>Services</button>
-    <button mat-button>Contact</button>
-  </mat-toolbar-row>
-</mat-toolbar>
-<mat-card>
-  <mat-form-field>
-    <input matInput [(ngModel)]="answer" placeholder="Who has the best dev tutorials?">
-  </mat-form-field>
+  <mat-sidenav-container fxFlex>
+    <mat-sidenav mode="side" opened>
+      Sidenav
+    </mat-sidenav>
+    <div class="content">
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let assignee of viewModelArray">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <button mat-icon-button color="primary">{{viewModel[assignee].issueCount}}</button>
+            </mat-panel-title>
+            <mat-panel-description>
+              {{assignee}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
 
-  <br>
-
-  <button mat-raised-button (click)="showAnswer()">Answer me</button>
-  <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
-</mat-card>
+          <mat-card *ngFor="let task of viewModel[assignee].issues" style="margin-bottom:15px">
 
 
-<mat-card *ngIf="answerDisplay">
-  <h1>{{ answerDisplay }}, you're damn right.</h1>
-</mat-card>
+            <mat-card-header>
+              <!--<div mat-card-avatar class="example-header-image"></div>-->
+              <mat-card-title>{{ task.key }}</mat-card-title>
+              <mat-card-subtitle>{{ task.summary }}</mat-card-subtitle>
+            </mat-card-header>
+            <!--<img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
+            <mat-card-content>
+              <p>
+                {{ task.description }}
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button ng-href="">Go</button>
+              <!--<button mat-button>SHARE</button>-->
+            </mat-card-actions>
+
+          </mat-card>
+
+
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </mat-sidenav-container>
+
+</div>
 <router-outlet></router-outlet>
