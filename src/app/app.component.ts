@@ -11,11 +11,14 @@ export class AppComponent {
   answerDisplay: string = '';
   showSpinner: boolean = false;
   public viewModel: any;
+  public prViewModel: any;
+  public prViewModelArray: any;
   public viewModelArray: any;
 
   constructor(private http: HttpClient) {
 
     this.viewModel = {};
+    this.prViewModel = {};
 
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json').set('Authorization', 'Basic eGlhby5zaGVuQGNhcGNvLmNvbTpXZWxjb21lMg==')
@@ -35,10 +38,10 @@ export class AppComponent {
         }
       })
       .subscribe(data => {
-        if (!!data && !!data.issues) {
+        if (!!data && !!data['issues']) {
           // console.log(data.issues);
-          for (let i=0; i< data.issues.length; i++){
-            var issueData = data.issues[i];
+          for (let i = 0; i < data['issues'].length; i++) {
+            var issueData = data['issues'][i];
             var issueKey = issueData.key;
             var assignee = issueData.fields.assignee.name;
             var epicNum = issueData.fields.customfield_10005;
@@ -47,14 +50,14 @@ export class AppComponent {
             var summary = issueData.fields.summary;
             // console.log(data.issues[i].fields.assignee.name);
             if (this.viewModel.hasOwnProperty(assignee)) {
-            //  already has such assignee in model
+              //  already has such assignee in model
               this.viewModel[assignee]['issueCount']++;
-              this.viewModel[assignee]['issues'].push({key: issueKey, summary: summary, description: description });
+              this.viewModel[assignee]['issues'].push({key: issueKey, summary: summary, description: description});
 
             } else {
               this.viewModel[assignee] = {};
               this.viewModel[assignee]['issueCount'] = 1;
-              this.viewModel[assignee]['issues'] = [{key: issueKey, summary: summary, description: description }];
+              this.viewModel[assignee]['issues'] = [{key: issueKey, summary: summary, description: description}];
             }
 
           }
@@ -65,12 +68,50 @@ export class AppComponent {
       });
 
 
+    this.http.get("https://bitbucket.org/!api/2.0/repositories/capco-cardinal/cardinal-web-app/pullrequests",
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Basic eGlhby5zaGVuQGNhcGNvLmNvbTpXZWxjb21lMg==',
+          'Access-Control-Allow-Origin': 'true'
+        }
+      })
+      .subscribe(data => {
+        if (!!data && !!data['values']) {
+          console.log(data['values']);
+          for (let i = 0; i < data['values'].length; i++) {
+            var issueData = data['values'][i];
+            var title = issueData['title'];
+            var author = issueData['author']['display_name'];
+
+            if (this.prViewModel.hasOwnProperty(author)) {
+              //  already has such assignee in model
+              this.prViewModel[author]['prCount']++;
+              this.prViewModel[author]['prList'].push({title: title});
+
+            } else {
+              this.prViewModel[author] = {};
+              this.prViewModel[author]['prCount'] = 1;
+              this.prViewModel[author]['prList'] = [{title: title}];
+            }
+            this.prViewModelArray = Object.keys(this.prViewModel);
+
+          }
+
+
+
+        }
+      });
+
+
+
+
+
+
+
+
   }
 
-
-  getKeyArray() {
-
-  }
 
   showAnswer() {
     this.showSpinner = true;
