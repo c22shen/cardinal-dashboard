@@ -29,12 +29,15 @@ export class AppComponent {
     //   headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic eGlhby5zaGVuQGNhcGNvLmNvbTpXZWxjb21lMg==', 'Access-Control-Allow-Origin' : 'true' })
     // };
 
-    this.http.get("https://capco-cardinal.atlassian.net/rest/api/2/search?jql=project+%3D+PCFQA+AND+%22Vendor+List%22+%3D+Capco+AND+%22PCF+Stream%22+%3D+%22Secure+Site:+Responsive+web%22+AND+status+not+in+(%22Ready+to+Retest%22,+Closed,+%22Capco+QA%22,+Cancelled,+Canceled,+Rejected,+Deferred,+%22Need+More+Info%22,+Duplicate,+draft,+Monitor,+Fixed)+AND+priority+in+(%221-+Urgent%22,+%222-+High%22,+%223-+Medium%22)+AND+assignee+in+(riju.vashisht,+Ricardo.Razo,+Rodrigo.Paixao,+julien.truchot,+Sreekumar.Rajan,+lucas.alba,+Xiao.Shen,+zeyu.dang,+yulisa.chang,+donny.ng,+Zheng.Fang,+Dae.Hee.Jeon)+OR+project+%3D+SSITE+AND+type+%3D+Bug+AND+assignee+in+(riju.vashisht,+Ricardo.Razo,+Rodrigo.Paixao,+julien.truchot,+Sreekumar.Rajan,+lucas.alba,+Xiao.Shen,+zeyu.dang,+yulisa.chang,+donny.ng,+Zheng.Fang,+Dae.Hee.Jeon)+AND+status+not+in+(%22Ready+to+Retest%22,+Closed,+%22Capco+QA%22,+Cancelled,+Canceled,+Rejected,+Deferred,+%22Need+More+Info%22,+Duplicate,+draft,+Monitor,+Fixed)+AND+Severity+in+(%221+-+Critical%22,+%222+-+Major%22,+%223+-+Minor%22)",
+    this.http.get("/api/rest/api/2/search?jql=project+%3D+PCFQA+AND+%22Vendor+List%22+%3D+Capco+AND+%22PCF+Stream%22+%3D+%22Secure+Site:+Responsive+web%22+AND+status+not+in+(%22Ready+to+Retest%22,+Closed,+%22Capco+QA%22,+Cancelled,+Canceled,+Rejected,+Deferred,+%22Need+More+Info%22,+Duplicate,+draft,+Monitor,+Fixed)+AND+priority+in+(%221-+Urgent%22,+%222-+High%22,+%223-+Medium%22)+AND+assignee+in+(riju.vashisht,+Ricardo.Razo,+Rodrigo.Paixao,+julien.truchot,+Sreekumar.Rajan,+lucas.alba,+Xiao.Shen,+zeyu.dang,+yulisa.chang,+donny.ng,+Zheng.Fang,+Dae.Hee.Jeon)+OR+project+%3D+SSITE+AND+type+%3D+Bug+AND+assignee+in+(riju.vashisht,+Ricardo.Razo,+Rodrigo.Paixao,+julien.truchot,+Sreekumar.Rajan,+lucas.alba,+Xiao.Shen,+zeyu.dang,+yulisa.chang,+donny.ng,+Zheng.Fang,+Dae.Hee.Jeon)+AND+status+not+in+(%22Ready+to+Retest%22,+Closed,+%22Capco+QA%22,+Cancelled,+Canceled,+Rejected,+Deferred,+%22Need+More+Info%22,+Duplicate,+draft,+Monitor,+Fixed)+AND+Severity+in+(%221+-+Critical%22,+%222+-+Major%22,+%223+-+Minor%22)",
       {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Basic eGlhby5zaGVuQGNhcGNvLmNvbTpXZWxjb21lMg==',
-          'Access-Control-Allow-Origin': 'true'
+          // 'Access-Control-Allow-Origin': '*',
+          // 'Access-Control-Allow-Credentials': 'true',
+          // 'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
+          // 'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
         }
       })
       .subscribe(data => {
@@ -73,7 +76,10 @@ export class AppComponent {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Basic eGlhby5zaGVuQGNhcGNvLmNvbTpXZWxjb21lMg==',
-          'Access-Control-Allow-Origin': 'true'
+          // 'Access-Control-Allow-Origin': '*',
+          // 'Access-Control-Allow-Credentials': 'true',
+          // 'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
+          // 'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
         }
       })
       .subscribe(data => {
