@@ -3,6 +3,13 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "https://fonts.googleapis.com/css?family=Material+Icons";
 @import "https://fonts.googleapis.com/css?family=Roboto:400,300";
+/*@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';*/
+
+
+:host {
+  display: flex;
+  flex: 1;
+}
 
 html, body {
   display: flex;
@@ -11,5 +18,9 @@ html, body {
   font-family: Roboto, Arial, sans-serif;
   margin: 0;
   height: 100%;
+}
+
+.content {
+  padding: 6%;
 }
 

@@ -86,19 +86,20 @@ export class AppComponent {
         if (!!data && !!data['values']) {
           console.log(data['values']);
           for (let i = 0; i < data['values'].length; i++) {
-            var issueData = data['values'][i];
-            var title = issueData['title'];
-            var author = issueData['author']['display_name'];
+            let issueData = data['values'][i];
+            let title = issueData['title'];
+            let author = issueData['author']['display_name'];
+            let id = issueData['id'];
 
             if (this.prViewModel.hasOwnProperty(author)) {
               //  already has such assignee in model
               this.prViewModel[author]['prCount']++;
-              this.prViewModel[author]['prList'].push({title: title});
+              this.prViewModel[author]['prList'].push({title: title, id: id});
 
             } else {
               this.prViewModel[author] = {};
               this.prViewModel[author]['prCount'] = 1;
-              this.prViewModel[author]['prList'] = [{title: title}];
+              this.prViewModel[author]['prList'] = [{title: title, id: id}];
             }
             this.prViewModelArray = Object.keys(this.prViewModel);
 
