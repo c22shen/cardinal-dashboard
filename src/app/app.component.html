@@ -87,6 +87,45 @@
 
         </mat-expansion-panel>
       </mat-accordion>
+
+      <h1>List of Tasks</h1>
+
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let assignee of taskModelArray">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <button mat-icon-button color="primary">{{taskViewModel[assignee].issueCount}}</button>
+            </mat-panel-title>
+            <mat-panel-description>
+              {{assignee}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <mat-card *ngFor="let task of taskViewModel[assignee].issues" style="margin-bottom:15px">
+
+
+            <mat-card-header>
+              <!--<div mat-card-avatar class="example-header-image"></div>-->
+              <mat-card-title>{{ task.summary }}</mat-card-title>
+              <!--<mat-card-subtitle>{{ task.summary }}</mat-card-subtitle>-->
+            </mat-card-header>
+            <!--<img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
+            <mat-card-content>
+              <p>
+                <!--{{ task.description }}-->
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <a mat-button target="_blank" href="https://capco-cardinal.atlassian.net/browse/{{task.key}}">Go</a>
+            </mat-card-actions>
+          </mat-card>
+
+
+        </mat-expansion-panel>
+      </mat-accordion>
+
+
+
     </div>
 
   </mat-sidenav-container>

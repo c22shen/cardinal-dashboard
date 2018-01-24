@@ -14,18 +14,20 @@ export class AppComponent {
   public prViewModel: any;
   public prViewModelArray: any;
   public viewModelArray: any;
+  public taskViewModel: any;
+  public taskModelArray: any;
 
   constructor(private http: HttpClient) {
 
     this.viewModel = {};
     this.prViewModel = {};
+    this.taskViewModel = {};
 
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json').set('Authorization', 'Basic eGlhby5zaGVuQGNhcGNvLmNvbTpXZWxjb21lMg==')
       .set('Access-Control-Allow-Origin', 'true');
 
-
-    let filterURL="project = \"Secure Site: Responsive web\" AND type = Bug AND status not in (Closed, Deferred, Fixed, duplicate, \"Ready to Retest\", Monitor, Reject, Canceled, Cancelled, Rejected) AND assignee in (Xiao.Shen, julien.truchot, Ricardo.Razo, riju.vashisht, Rodrigo.Paixao, Zheng.Fang, donny.ng, yulisa.chang, Sreekumar.Rajan, lucas.alba) OR project = PCFQA AND type = Bug AND \"PCF Stream\" = \"Secure Site: Responsive web\" AND status not in (Closed, Deferred, Fixed, duplicate, \"Ready to Retest\", Monitor, Reject, Canceled, Cancelled, Rejected) AND assignee in (Xiao.Shen, julien.truchot, Ricardo.Razo, riju.vashisht, Rodrigo.Paixao, Zheng.Fang, donny.ng, yulisa.chang, Sreekumar.Rajan, lucas.alba) ORDER BY status DESC","viewUrl":"https://capco-cardinal.atlassian.net/issues/?filter=18342","searchUrl":"https://capco-cardinal.atlassian.net/rest/api/2/search?jql=project+%3D+%22Secure+Site:+Responsive+web%22+AND+type+%3D+Bug+AND+status+not+in+(Closed,+Deferred,+Fixed,+duplicate,+%22Ready+to+Retest%22,+Monitor,+Reject,+Canceled,+Cancelled,+Rejected)+AND+assignee+in+(Xiao.Shen,+julien.truchot,+Ricardo.Razo,+riju.vashisht,+Rodrigo.Paixao,+Zheng.Fang,+donny.ng,+yulisa.chang,+Sreekumar.Rajan,+lucas.alba)+OR+project+%3D+PCFQA+AND+type+%3D+Bug+AND+%22PCF+Stream%22+%3D+%22Secure+Site:+Responsive+web%22+AND+status+not+in+(Closed,+Deferred,+Fixed,+duplicate,+%22Ready+to+Retest%22,+Monitor,+Reject,+Canceled,+Cancelled,+Rejected)+AND+assignee+in+(Xiao.Shen,+julien.truchot,+Ricardo.Razo,+riju.vashisht,+Rodrigo.Paixao,+Zheng.Fang,+donny.ng,+yulisa.chang,+Sreekumar.Rajan,+lucas.alba)+ORDER+BY+status+DESC";
+    const filterURL= "project = \"Secure Site: Responsive web\" AND type = Bug AND status not in (Closed, Deferred, Fixed, duplicate, \"Ready to Retest\", Monitor, Reject, Canceled, Cancelled, Rejected) AND assignee in (Xiao.Shen, julien.truchot, Ricardo.Razo, riju.vashisht, Rodrigo.Paixao, Zheng.Fang, donny.ng, yulisa.chang, Sreekumar.Rajan, lucas.alba) OR project = PCFQA AND type = Bug AND \"PCF Stream\" = \"Secure Site: Responsive web\" AND status not in (Closed, Deferred, Fixed, duplicate, \"Ready to Retest\", Monitor, Reject, Canceled, Cancelled, Rejected) AND assignee in (Xiao.Shen, julien.truchot, Ricardo.Razo, riju.vashisht, Rodrigo.Paixao, Zheng.Fang, donny.ng, yulisa.chang, Sreekumar.Rajan, lucas.alba) ORDER BY status DESC","viewUrl":"https://capco-cardinal.atlassian.net/issues/?filter=18342","searchUrl":"https://capco-cardinal.atlassian.net/rest/api/2/search?jql=project+%3D+%22Secure+Site:+Responsive+web%22+AND+type+%3D+Bug+AND+status+not+in+(Closed,+Deferred,+Fixed,+duplicate,+%22Ready+to+Retest%22,+Monitor,+Reject,+Canceled,+Cancelled,+Rejected)+AND+assignee+in+(Xiao.Shen,+julien.truchot,+Ricardo.Razo,+riju.vashisht,+Rodrigo.Paixao,+Zheng.Fang,+donny.ng,+yulisa.chang,+Sreekumar.Rajan,+lucas.alba)+OR+project+%3D+PCFQA+AND+type+%3D+Bug+AND+%22PCF+Stream%22+%3D+%22Secure+Site:+Responsive+web%22+AND+status+not+in+(Closed,+Deferred,+Fixed,+duplicate,+%22Ready+to+Retest%22,+Monitor,+Reject,+Canceled,+Cancelled,+Rejected)+AND+assignee+in+(Xiao.Shen,+julien.truchot,+Ricardo.Razo,+riju.vashisht,+Rodrigo.Paixao,+Zheng.Fang,+donny.ng,+yulisa.chang,+Sreekumar.Rajan,+lucas.alba)+ORDER+BY+status+DESC";
     this.http.get("/api/rest/api/2/search?jql=" + filterURL,     {
         headers: {
           'Content-Type': 'application/json',
@@ -70,7 +72,7 @@ export class AppComponent {
           this.viewModelArray = Object.keys(this.viewModel);
         }
 
-        console.log(this.viewModel);
+        // console.log(this.viewModel);
       });
 
 
@@ -111,6 +113,56 @@ export class AppComponent {
 
         }
       });
+
+    let taskURL = "project = \"Secure Site: Responsive web\" AND type = \"SSITE Web \" AND status not in (Done, \"Ready for CAPCO QA\", \"Out of Scope (Issue)\")";
+    this.http.get("/api/rest/api/2/search?jql=" + taskURL,     {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic eGlhby5zaGVuQGNhcGNvLmNvbTpXZWxjb21lMg==',
+        // 'Access-Control-Allow-Origin': '*',
+        // 'Access-Control-Allow-Credentials': 'true',
+        // 'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
+        // 'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
+      }
+    })
+      .subscribe(data => {
+        console.log(data);
+        if (!!data && !!data['issues']) {
+          for (let i = 0; i < data['issues'].length; i++) {
+            var issueData = data['issues'][i];
+            var issueKey = issueData.key;
+            var assignee = issueData.fields.assignee.name;
+            var epicNum = issueData.fields.customfield_10005;
+            // var description = issueData.fields.description;
+            var summary = issueData.fields.summary;
+            var status = issueData.fields.status.name;
+
+            // console.log(data.issues[i].fields.assignee.name);
+            if (status.trim() !== "Under Code Review") {
+              if (this.taskViewModel.hasOwnProperty(assignee)) {
+                //  already has such assignee in model
+                // this.viewModel[assignee]['issueCountNoPR']++;
+                this.taskViewModel[assignee]['issueCount']++;
+                this.taskViewModel[assignee]['issues'].push({key: issueKey, summary: summary});
+              }   else {
+                this.taskViewModel[assignee] = {};
+                // if (status.trim() !== "Under Code Review") {
+                // this.viewModel[assignee]['issueCountNoPR'] = 1;
+                this.taskViewModel[assignee]['issueCount'] = 1;
+                this.taskViewModel[assignee]['issues'] = [{key: issueKey, summary: summary}];
+                // }
+              }
+            }
+
+          }
+          this.taskModelArray = Object.keys(this.taskViewModel);
+        }
+      });
+
+
+
+
+
 
 
   }
